@@ -1,4 +1,4 @@
-use std::process::{Command, ExitStatus};
+use std::process::Command;
 
 fn main()
 {
@@ -24,3 +24,4 @@ fn main()
         println!("{}", String::from_utf8(output.stderr).unwrap());
     }
 }
+
