@@ -1,5 +1,8 @@
 # Make sure to download FASMG for Windows here:
 
+
+# MAKE SURE TO DOWNLOAD FASMG NOT FASM. IT'S AT THE BOTTOM OF THE PAGE
+
 https://flatassembler.net/fasmg.zip
 
 

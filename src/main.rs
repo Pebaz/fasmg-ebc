@@ -2,12 +2,22 @@ use std::process::{Command, ExitStatus};
 
 fn main()
 {
-    let output = Command::new(r"C:\users\samuelwilder\Downloads\fasmw17328\fasm")
-        .args(["hello.asm", "hello.efi"])
+    let args = std::env::args().skip(1).collect::<Vec<String>>();
+
+    if args.len() < 2
+    {
+        return println!(
+            "Usage:\n    fasmg-ebc-rs <SOURCE.asm> <DESTINATION.efi>"
+        );
+    }
+
+    let output = Command::new("fasmg")
+        .args(args)
+        .env("INCLUDE", "include")
         .output()
         .expect("failed to execute process");
 
-    // println!("{:?}", output);
+    println!("{:?}", output);
 
     if !output.status.success()
     {
