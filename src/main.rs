@@ -1,4 +1,12 @@
 use std::process::Command;
+use std::io::prelude::*;
+
+const EBC: &[u8] = include_bytes!("include/ebc.inc");
+const EFI: &[u8] = include_bytes!("include/efi.inc");
+const FORMAT: &[u8] = include_bytes!("include/format.inc");
+const PE: &[u8] = include_bytes!("include/pe.inc");
+const UTF8: &[u8] = include_bytes!("include/utf8.inc");
+const STUB: &[u8] = include_bytes!("include/stub.com");
 
 fn main()
 {
@@ -11,10 +19,32 @@ fn main()
         );
     }
 
+    let temp_dir = std::path::Path::new(&std::env::temp_dir()).join(
+        std::env::var("CARGO_PKG_NAME").unwrap()
+    );
+
+    std::fs::create_dir(&temp_dir);
+
+    let files = [
+        ("ebc.inc", EBC),
+        ("efi.inc", EFI),
+        ("format.inc", FORMAT),
+        ("pe.inc", PE),
+        ("utf8.inc", UTF8),
+        ("stub.com", STUB)
+    ];
+
+    for (filename, file_content) in files.into_iter()
+    {
+        let mut full_path = temp_dir.join(filename);
+        let mut file = std::fs::File::create(full_path).unwrap();
+        file.write_all(file_content);
+    }
+
     let output = match Command::new("fasmg")
         .arg("-n")
         .args(args)
-        .env("INCLUDE", "include")
+        .env("INCLUDE", temp_dir)
         .output()
     {
         Ok(output) => output,

@@ -32,5 +32,5 @@ $ fasmg-ebc-rs input.asm output.efi
 
 This project is a fork and rebranding of the
 [fasmg-ebc](https://github.com/pbatard/fasmg-ebc) project and I make no claim
-that this is original software. Everything included in the `include` directory
-has been written by [Pete Batard](https://github.com/pbatard).
+that this is original software. Everything included in the `src/include`
+directory has been written by [Pete Batard](https://github.com/pbatard).
