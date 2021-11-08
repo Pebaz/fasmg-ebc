@@ -11,17 +11,26 @@ fn main()
         );
     }
 
-    let output = Command::new("fasmg")
+    let output = match Command::new("fasmg")
+        .arg("-n")
         .args(args)
         .env("INCLUDE", "include")
         .output()
-        .expect("failed to execute process");
-
-    println!("{:?}", output);
+    {
+        Ok(output) => output,
+        Err(_) =>
+        {
+            return println!(
+                "Could not find fasmg on your path.\nInstall it from: {}",
+                "http://flatassembler.net/fasmg.jg8x.zip"
+            );
+        }
+    };
 
     if !output.status.success()
     {
-        println!("{}", String::from_utf8(output.stderr).unwrap());
+        print!("{}", String::from_utf8(output.stderr).unwrap());
     }
-}
 
+    print!("{}", String::from_utf8(output.stdout).unwrap());
+}

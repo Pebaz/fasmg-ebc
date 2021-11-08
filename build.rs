@@ -1,5 +1,3 @@
-// FASMG not found on path, downloading
-// FASMG failed to download: ERROR
 // Please install FASMG manually by downloading from here and adding to your
 // PATH
 
@@ -13,12 +11,15 @@ const ZIP_FILE: &'static str = "fasmg.zip";
 
 fn main()
 {
-    if let Err(_) = Command::new("fasmg").output()
+    let out_dir = env::var_os("OUT_DIR").unwrap();
+    let dest_path = Path::new(&out_dir).join("hello.rs");
+
+
+    if let Err(_) = Command::new("fasmgg").output()
     {
         println!("FASMG not found on path, downloading...");
 
         let mut body = ureq::get(URL)
-            .set("Example-Header", "header value")
             .call()
             .unwrap()
             .into_reader();
@@ -34,7 +35,7 @@ fn main()
         ));
     }
 
-
+    // TODO(pbz): Use appropriate build per platform
 
     println!("cargo:rerun-if-changed=build.rs");
 }
