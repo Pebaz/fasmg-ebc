@@ -8,17 +8,9 @@ const PE: &[u8] = include_bytes!("include/pe.inc");
 const UTF8: &[u8] = include_bytes!("include/utf8.inc");
 const STUB: &[u8] = include_bytes!("include/stub.com");
 
-fn main()
+/// Provided so that other crates can compile EFI Bytecode
+pub fn assemble_ebc(input_filename: &str, output_filename: &str)
 {
-    let args = std::env::args().skip(1).collect::<Vec<String>>();
-
-    if args.len() < 2
-    {
-        return println!(
-            "Usage:\n    fasmg-ebc-rs <SOURCE.asm> <DESTINATION.efi>"
-        );
-    }
-
     let temp_dir = std::path::Path::new(&std::env::temp_dir()).join(
         std::env::var("CARGO_PKG_NAME").unwrap()
     );
@@ -43,14 +35,14 @@ fn main()
 
     let output = match Command::new("fasmg")
         .arg("-n")
-        .args(args)
+        .args([input_filename, output_filename])
         .env("INCLUDE", temp_dir)
         .output()
     {
         Ok(output) => output,
         Err(_) =>
         {
-            return println!(
+            panic!(
                 "Could not find fasmg on your path.\nInstall it from: {}",
                 "http://flatassembler.net/fasmg.jg8x.zip"
             );
@@ -59,8 +51,6 @@ fn main()
 
     if !output.status.success()
     {
-        print!("{}", String::from_utf8(output.stderr).unwrap());
+        panic!("{}", String::from_utf8(output.stderr).unwrap());
     }
-
-    print!("{}", String::from_utf8(output.stdout).unwrap());
 }
