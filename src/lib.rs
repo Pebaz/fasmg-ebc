@@ -1,12 +1,12 @@
 use std::process::Command;
 use std::io::prelude::*;
 
-const EBC: &[u8] = include_bytes!("include/ebc.inc");
-const EFI: &[u8] = include_bytes!("include/efi.inc");
-const FORMAT: &[u8] = include_bytes!("include/format.inc");
-const PE: &[u8] = include_bytes!("include/pe.inc");
-const UTF8: &[u8] = include_bytes!("include/utf8.inc");
-const STUB: &[u8] = include_bytes!("include/stub.com");
+pub const EBC: &[u8] = include_bytes!("include/ebc.inc");
+pub const EFI: &[u8] = include_bytes!("include/efi.inc");
+pub const FORMAT: &[u8] = include_bytes!("include/format.inc");
+pub const PE: &[u8] = include_bytes!("include/pe.inc");
+pub const UTF8: &[u8] = include_bytes!("include/utf8.inc");
+pub const STUB: &[u8] = include_bytes!("include/stub.com");
 
 /// Provided so that other crates can compile EFI Bytecode
 pub fn assemble_ebc(input_filename: &str, output_filename: &str)

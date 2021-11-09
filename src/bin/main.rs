@@ -1,12 +1,6 @@
 use std::process::Command;
 use std::io::prelude::*;
-
-const EBC: &[u8] = include_bytes!("include/ebc.inc");
-const EFI: &[u8] = include_bytes!("include/efi.inc");
-const FORMAT: &[u8] = include_bytes!("include/format.inc");
-const PE: &[u8] = include_bytes!("include/pe.inc");
-const UTF8: &[u8] = include_bytes!("include/utf8.inc");
-const STUB: &[u8] = include_bytes!("include/stub.com");
+use fasmg_ebc_rs::*;
 
 fn main()
 {
