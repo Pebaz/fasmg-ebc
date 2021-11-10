@@ -16,7 +16,7 @@ fn main()
     let temp_dir = std::path::Path::new(&std::env::temp_dir())
         .join("fasmg-ebc-rs");
 
-    std::fs::create_dir(&temp_dir).unwrap();
+    std::fs::create_dir_all(&temp_dir).unwrap();
 
     let files = [
         ("ebc.inc", EBC),
