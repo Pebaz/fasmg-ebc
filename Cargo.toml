@@ -6,3 +6,7 @@ edition = "2021"
 [lib]
 name = "fasmg_ebc_rs"
 crate-type = ["lib"]
+
+[[bin]]
+name = "fasmg-ebc-rs"
+path = "src/main.rs"
