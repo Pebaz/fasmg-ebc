@@ -13,9 +13,8 @@ fn main()
         );
     }
 
-    let temp_dir = std::path::Path::new(&std::env::temp_dir()).join(
-        std::env::var("CARGO_PKG_NAME").unwrap()
-    );
+    let temp_dir = std::path::Path::new(&std::env::temp_dir())
+        .join("fasmg-ebc-rs");
 
     std::fs::create_dir(&temp_dir).unwrap();
 
