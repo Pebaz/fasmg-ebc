@@ -15,7 +15,7 @@ pub fn assemble_ebc(input_filename: &str, output_filename: &str)
         std::env::var("CARGO_PKG_NAME").unwrap()
     );
 
-    std::fs::create_dir(&temp_dir).unwrap();
+    if let Err(_) = std::fs::create_dir(&temp_dir) { }
 
     let files = [
         ("ebc.inc", EBC),
