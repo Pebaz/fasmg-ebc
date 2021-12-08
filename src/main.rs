@@ -13,10 +13,11 @@ fn main()
         );
     }
 
-    let temp_dir = std::path::Path::new(&std::env::temp_dir())
-        .join("fasmg-ebc-rs");
+    let temp_dir = std::path::Path::new(&std::env::temp_dir()).join(
+        std::env::var("CARGO_PKG_NAME").unwrap()
+    );
 
-    std::fs::create_dir_all(&temp_dir).unwrap();
+    if let Err(_) = std::fs::create_dir(&temp_dir) { }
 
     let files = [
         ("ebc.inc", EBC),
